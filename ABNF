@@ -1,5 +1,6 @@
 ; Estructura general
-mensaje = numero SP frase
+mensaje = numero separador frase
+separador = "\s3par4dor/"
 numero = "1" / "2" ; 1 define el texto con las vocales y 2 el texto con las vocales cambiadas por numeros
 frase = 1*50palabra "."
 
