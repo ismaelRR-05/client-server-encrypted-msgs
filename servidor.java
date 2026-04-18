@@ -28,7 +28,7 @@ public class servidor {
     static final String KEYSTORE_PASS = "miPassword123";
     
     public static void main(String[] args) {
-        String texto_plano;
+        String separador = "\s3par4dor/";
         DataInputStream in;
         DataOutputStream out;
        
@@ -61,40 +61,44 @@ public class servidor {
                         System.out.println("[Servidor TLS] Cliente conectado de forma segura");
                         
                         // Ejemplo: leer lo que dice el cliente
-                        texto_plano = in.readUTF();
-                        System.out.println("Cliente dice: " + texto_plano);
+                        String mensaje = in.readUTF();
                         
-                        String texto_hacker = "";
-                        
-                        for (int i = 0; i < texto_plano.length(); i++) {
-                            switch (texto_plano.charAt(i)) {
-                                case 'a':
-                                case 'A':
-                                    texto_hacker += "4";
-                                    break;
-                                case 'e':
-                                case 'E':
-                                    texto_hacker += "3";
-                                    break;
-                                case 'i':
-                                case 'I':
-                                    texto_hacker += "1";
-                                    break;
-                                case 'o':
-                                case 'O':
-                                    texto_hacker += "0";
-                                    break;
-                                case 'u':
-                                case 'U':
-                                    texto_hacker += "6";
-                                    break;
-                                default: 
-                                    texto_hacker += texto_plano.charAt(i);
+                        if (mensaje.split(separador)[0].equals("1")) {
+                            
+                            String texto_plano = mensaje.split(separador)[1];
+                            System.out.println("Cliente dice: " + texto_plano);
+
+                            String texto_hacker = "2" + separador;
+
+                            for (int i = 0; i < texto_plano.length(); i++) {
+                                switch (texto_plano.charAt(i)) {
+                                    case 'a':
+                                    case 'A':
+                                        texto_hacker += "4";
+                                        break;
+                                    case 'e':
+                                    case 'E':
+                                        texto_hacker += "3";
+                                        break;
+                                    case 'i':
+                                    case 'I':
+                                        texto_hacker += "1";
+                                        break;
+                                    case 'o':
+                                    case 'O':
+                                        texto_hacker += "0";
+                                        break;
+                                    case 'u':
+                                    case 'U':
+                                        texto_hacker += "6";
+                                        break;
+                                    default:
+                                        texto_hacker += texto_plano.charAt(i);
+                                }
                             }
+
+                            out.writeUTF(texto_hacker);
                         }
-                        
-                        out.writeUTF(texto_hacker);
-                        
                         
                         cs.close();
                         System.out.println("[Servidor TLS] Cliente desconectado de forma segura");

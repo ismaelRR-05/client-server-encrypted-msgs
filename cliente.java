@@ -20,6 +20,7 @@ public class cliente {
     static final String TRUSTSTORE_PASS = "miPassword123";
     
     public static void main(String[] args) {
+        String separador = "\s3par4dor/";
         DataInputStream in;
         DataOutputStream out;
 
@@ -48,16 +49,21 @@ public class cliente {
                 // Leemos el mensaje a enviar por teclado
                 Scanner scanner = new Scanner(System.in);
                 System.out.print("Escribe un mensaje: ");
-                String mensaje = scanner.nextLine();
-
+                String texto = scanner.nextLine();
+                
+                String mensaje = "1" + separador + texto;
                 // Enviamos el mensaje al servidor
                 out.writeUTF(mensaje);
                 System.out.println("[Cliente] Mensaje enviado");
 
                 // Recibimos la respuesta cifrada del servidor
                 String respuesta = in.readUTF();
-                System.out.println("[Cliente] Respuesta del servidor: " + respuesta);
-
+                if (respuesta.split(separador)[0].equals("2")) {
+                    String texto_respuesta = respuesta.split(separador)[1]; // tomo el 2º elemento, ya que el primero es el codigo del mensaje
+                    System.out.println("[Cliente] Respuesta del servidor: " + texto_respuesta);
+                }else{
+                    System.out.println("[Cliente] Respuesta del servidor erronea");
+                }
             }
 
         } catch (Exception ex) {
