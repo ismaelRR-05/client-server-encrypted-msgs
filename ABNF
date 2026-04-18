@@ -1,0 +1,6 @@
+; Estructura general
+mensaje = control / datos
+
+control = "CTRL" SP numero SP datos_control
+numero = 
+datos_control = 
